@@ -11,10 +11,10 @@ Préambule
 * Permettre à l’utilisateur de récupérer des fragments de code complets;
 * Proposer un “mini jeu” pour que l’utilisateur puisse tester ses connaissances;
 * Informer sur le principe du WAI (Web Accessibility Initiative);
-* Permettre à l’utilisateur de laisser un commentaire dans la documentations sur le principe des notes contributives.
-* Proposer une interface de test via l’utilisation d’un synthétiseur vocal en ligne (doc + jeu) 
-* Créer des liens vers des associations, des logiciels de synthèse vocale.
-* Récupérer les infos de la W3C via une API (si faisable, dans Informations)  
+* Permettre à l’utilisateur de laisser un commentaire dans la documentation sur le principe des notes contributives;
+* Proposer une interface de test via l’utilisation d’un synthétiseur vocal en ligne (doc + jeu);
+* Créer des liens vers des associations, des logiciels de synthèse vocale;
+* Récupérer les infos de la W3C via une API (si faisable, dans Informations).
 
 ## Architecture
 
