@@ -1,0 +1,100 @@
+ARIA dans les formulaires 
+- Les labels en général 
+    Avant même de songer à rajouter des éléments ARIA dans un formulaire, il est indispensables de lier les labels aux éléments leur correspondant dans les formulaires. Souvenez-vous, chaque <label> possède un attribut for lié à l'id de l'<input> qu'il qualifie. 
+<form>
+  <ul>
+    <li>
+      <input id="vin-1" type="checkbox" value="riesling"/>
+      <label for="vin-1">Berg Rottland Riesling</label>
+    </li>
+  </ul>
+</form>
+(Source : https://developer.mozilla.org/fr/docs/Accessibilit%C3%A9/ARIA/formulaires/Indications_elementaires_pour_les_formulaires) 
+*************
+aria-label : 
+Permet de donner un nom ou d'expliciter un élément grâce à une chaîne de caractère.
+<button type="button" aria-label="Confirmer mon inscription à la newsletter">
+  OK
+</button>
+ *******************
+aria-labelledby : 
+Etablit une relation entre plusieurs composants ou un groupe (un peu comme si l'ont mettait un titre à ce groupe d'éléments. Selon la W3C, il est préférable d'utiliser l'aria-labelledby pour qualifier des éléments qui n'ont pas de noms visibles à l'écran. 
+<div id="facturation">Facturation</div>
+<div>
+  <div id="nom">Nom</div>
+  <input type="text" aria-labelledby="nom facturation"/>
+</div>
+(Source : https://developer.mozilla.org/fr/docs/Accessibilit%C3%A9/ARIA/Techniques_ARIA/Utiliser_l_attribut_aria-labelledby) 
+*************************
+aria-describedly 
+Identifie l'élément qui décrit l'objet dans un formulaire. 
+<button aria-describedby="descriptionRevert">Annuler</button>
+<div id="descriptionRevert">L’annulation supprimera toutes les modifications
+                    intervenues depuis le dernier enregistrement.</div>
+**************************
+aria-required 
+Indique que l'utilisateur doit obligatoirement compléter l'élément avant de valider le formulaire. Il doit être =true pour être actif ou =false pour être inactif (valeur par défaut). 
+<form>
+  <div>
+    <label for="nom">* Nom :</label>
+    <input type="text" value="nom" id="nom" aria-required="true"/>
+  </div>
+  <div>
+    <label for="telephone">Téléphone :</label>
+    <input type="text" value="telephone" id="telephone" aria-required="false"/>
+  </div>
+  <div>
+    <label for="courriel">* Courriel :</label>
+    <input type="text" value="courriel" id="courriel" aria-required="true"/>
+  </div>
+</form>
+***************************
+aria-invalid 
+Indique qu'une valeur entrée dans un formulaire ne correspond pas  au format attendu.  
+var validate = function () {
+  var emailElement = document.getElementById(emailFieldId);
+  var valid = emailValid(formData.email); // retourne true si valide, false dans le cas contraire
+  emailElement.setAttribute("aria-invalid", !valid);
+  setElementBorderColour(emailElement, valid); // colore la bordure en rouge sur le second argument est false
+};
+*******************************
+Le rôle alert 
+Utilisé pour communiquer un message important. À utiliser avec parcimonie car très intrusif. 
+<h2 role="alert">Votre formulaire ne peut être soumis à cause de 3 erreurs de validation.</h2>
+****************
+Le rôle dialog
+Utilisé pour marquer une fenêtre ou une boîte de dialogue. Le seul ajout de role="dialog" n’est pas suffisant pour rendre une boîte de dialogue accessible. Il faut qu'elle soit correctement labellisée (notamment grâce à aria-labelledby et aria-describedby) et que le focus clavier soit géré de manière à ce que les utilisateurs qui se servent du clavier puissent accéder aux fonctionnalités de la boîte. 
+<div role="dialog" aria-labelledby="dialog1Title" aria-describedby="dialog1Desc">
+    <h2 id="dialog1Title">Vos informations personnelles ont correctement été actualisées.</h2>
+    <p id="dialog1Desc">Vous pouvez modifier vos informations personnelles à n’importe quel moment depuis la section « Compte utilisateur. »</p>
+    
+    <button>Fermer</button>
+</div>
+******************
+Le rôle alertdialog 
+Signale l'ouverture d'une boîte de dialogue urgente. La boîte de dialogue d’alerte doit toujours avoir un nom accessible (attribué à l’aide de aria-labelledby ou de aria-label) 
+**********************
+Aria-pressed 
+Permet de transformer un bouton en un bouton à bascule qui peut avoir deux états : pressé et non pressé. 
+Si aria-pressed n’est pas utilisé, le bouton n’est pas un bouton à bascule ;
+Si aria-pressed="false" est utilisé, le bouton est un bouton à bascule au repos ;
+Si aria-pressed="true" est utilisé, le bouton est un bouton à bascule actionné ;
+Si aria-pressed="mixed" est utilisé, le bouton est considéré comme étant partiellement actionné.
+<style type="text/css">
+      [role="button"] {
+       padding:3px;
+       border: 1px solid #CCC;
+      }
+      [role="button"][aria-pressed="true"] {
+       border: 2px solid #000;
+      }
+     </style>
+****************************
+aria-checked
+Si un élément utilise role="checkbox", il est obligatoire pour cet élément d’avoir également un attribut aria-checked qui présente l’état de la case à cocher. Un élément avec le rôle role=checkbox peut présenter trois états :
+aria-checked="true" : la case est cochée ;
+aria-checked="false" : la case est décochée ;
+aria-checked="mixed" : la case est partiellement cochée.
+<span role="checkbox" aria-checked="false" tabindex="0" id="chk1"></span>
+<label for="chk1">Enregistrer mes préférences</label>
+*****************************
